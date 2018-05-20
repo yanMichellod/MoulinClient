@@ -1,14 +1,14 @@
 #ifndef XF_H
 #define XF_H
 
-#include <QApplication>
+#include <QObject>
 #include <QTimer>
 #include <QMap>
 
 class XFEvent;
 class XFTimer;
 
-class XF : public QApplication
+class XF: public QObject
 {
     friend class XFTimer;
     Q_OBJECT

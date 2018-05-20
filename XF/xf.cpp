@@ -8,12 +8,12 @@
 
 XF* XF::instance = nullptr;
 
-XF::XF() : QApplication(fake,(char**) nullptr)
+XF::XF() : QObject(nullptr)
 {
     connect(this, SIGNAL(dispatch(XFEvent*)), this, SLOT(onDispatch(XFEvent*)));
 }
 
-XF::XF(const XF &) : QApplication(fake,(char**) nullptr)
+XF::XF(const XF &) : QObject(nullptr)
 {
 }
 

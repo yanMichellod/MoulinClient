@@ -21,16 +21,30 @@ Data::~Data()
 
 void Data::subscribe(View *view)
 {
-    allView[viewCnt] = view;
+    if ( viewCnt < MaxView){
+        allView[viewCnt] = view;
+        viewCnt ++;
+    }
 }
 
 void Data::setVisible(QString view, bool visible)
 {
-    for(int i = 0; i < MaxView ;i++){
+    for(int i = 0; i < viewCnt ;i++){
         if(allView[i]->getTitle().compare(view) == 0){
             allView[i]->setVisible(visible);
         }
     }
+}
+
+View *Data::getView(QString view)
+{
+    View* retview = nullptr;
+    for(int i = 0; i < viewCnt ;i++){
+        if(allView[i]->getTitle().compare(view) == 0){
+            retview = allView[i];
+        }
+    }
+    return retview;
 }
 
 

@@ -5,6 +5,7 @@
 #include <serverconnection.h>
 #include "data.h"
 #include <XF/ism.h>
+#include "View/view.h"
 
 
 
@@ -85,11 +86,11 @@ bool Controller::processEvent(XFEvent *p1)
         switch(oldstate){
 
         case ST_SETSERVER: {
-            data->setVisible("setup",false);
 
             break;
         }
         case ST_C0NNECTING:{
+            data->setVisible("setup",false);
 
             break;
         }
@@ -131,6 +132,7 @@ bool Controller::processEvent(XFEvent *p1)
 
 void Controller::ipSet()
 {
+    ServerConnection::getInstance()->setIPAdress((data->getView("setup"))->getData());
     XFEvent* ev = new XFEvent();
     ev->setID((int)EV_SERVERSET);
     ev->setTarget(this);

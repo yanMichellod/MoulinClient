@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
    Factory f;
    f.build();
+   f.start();
 
 
     // * TEST V 0.0
@@ -26,5 +27,6 @@ int main(int argc, char *argv[])
 
     //qDebug() << recievedData.toStdString();
 
-    return a.exec();
+   return a.exec();
+
 }

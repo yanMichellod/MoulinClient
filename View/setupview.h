@@ -3,8 +3,7 @@
 #include "View/view.h"
 #include <qlineedit.h>
 #include <qlabel.h>
-
-class Data;
+#include <QString>
 
 class SetupView : public View
 {
@@ -21,7 +20,7 @@ private:
     QLabel* ip;
     QLabel* port;
 
-    Data* data;
+    QString data;
 
 private slots:
     void onCommandEntered();
@@ -32,7 +31,7 @@ signals:
     // View interface
 protected:
     void changed();
-    void initRelation(Data *d);
+    QString getData();
 };
 
 #endif // SETUPVIEW_H

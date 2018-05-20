@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 #include <QObject>
 #include "XF/ism.h"
+
 class Data;
 class XFEvent;
 

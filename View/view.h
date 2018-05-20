@@ -13,13 +13,13 @@ public:
     View(int x, int y, int width, int heigth, QString title);
     virtual ~View();
     QString getTitle();
+    virtual QString getData() = 0;
 
 private:
     void setupUI();
 
 protected:
     virtual void changed() = 0;
-    virtual void initRelation(Data* d) = 0;
 
 private:
     int x;
