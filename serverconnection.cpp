@@ -1,16 +1,19 @@
 #include "serverconnection.h"
+#include "data.h"
+#include <qdebug.h>
+#include <QHostAddress>
 
-const QString* adress = new QString("153.109.7.53");
+ServerConnection* ServerConnection::instance = nullptr;
 
 ServerConnection::ServerConnection()
 {
     socket = new QTcpSocket(nullptr);
-    socket->connectToHost("153.109.7.53",3333);
+    connected = false;
+    connect(socket,SIGNAL(readyRead()),this,SLOT(recieve()));
 }
 
 ServerConnection::~ServerConnection()
 {
-    delete instance;
     delete socket;
 }
 
@@ -23,11 +26,55 @@ ServerConnection *ServerConnection::getInstance()
     return instance;
 }
 
-QByteArray ServerConnection::send(QByteArray *data)
+void ServerConnection::send(QByteArray data)
 {
-    socket->write(*data,data->length());
+    socket->write(data,data.length());
     socket->flush();
-    socket->waitForReadyRead(3000);
-    QByteArray recievedData = socket->readAll();
 }
+
+QString ServerConnection::getMessage()
+{
+    return message;
+}
+
+void ServerConnection::recieve()
+{
+    QByteArray recievedData = socket->readAll();
+    QString data;
+    for(int i=0; i<recievedData.length(); i++)
+    {
+        data.append(recievedData.at(i));
+    }
+    qDebug() << data;
+    message = data;
+}
+
+void ServerConnection::setIPAdress(QString adress)
+{
+    this->adress = adress;
+}
+
+QString ServerConnection::getIPAdress()
+{
+    return adress;
+}
+
+void ServerConnection::connectToServer()
+{
+    qDebug() << "connection" ;
+    socket->connectToHost(QHostAddress(adress),3333);
+    if( socket->waitForConnected(3000)){
+        qDebug() << "connected";
+        connected = true;
+    }   
+    else{
+        connectToServer();
+    }
+}
+
+bool ServerConnection::isConnected()
+{
+    return connected;
+}
+
 

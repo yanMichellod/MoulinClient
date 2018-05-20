@@ -1,23 +1,37 @@
 #ifndef SERVERCONNECTION_H
 #define SERVERCONNECTION_H
-#include <qtcpsocket.h>
-#include <qbytearray.h>
+#include <QTcpSocket>
+#include <QByteArray>
 
-class ServerConnection
+class Data;
+
+class ServerConnection: public QObject
 {
+    Q_OBJECT
 public:
 
     ~ServerConnection();
     static ServerConnection *getInstance();
-    QByteArray send(QByteArray* data);
+    void send(QByteArray data);
+    QString getMessage();
+    void setIPAdress(QString adress);
+    QString getIPAdress();
+    void connectToServer();
+    bool isConnected();
+
 
 private:
-    ServerConnection();
+    explicit ServerConnection();
     static ServerConnection* instance ;
     QTcpSocket* socket;
+    QString adress;
+    QString message;
+    bool connected;
+
+public slots:
+    void recieve();
 
 };
 
-ServerConnection* ServerConnection::instance = nullptr;
 
 #endif // SERVERCONNECTION_H

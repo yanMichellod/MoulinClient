@@ -1,5 +1,6 @@
 QT += core
 QT += network
+QT += widgets
 QT -= gui
 
 CONFIG += c++11
@@ -11,7 +12,24 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    serverconnection.cpp
+    serverconnection.cpp \
+    View/view.cpp \
+    View/setupview.cpp \
+    data.cpp \
+    factory.cpp \
+    XF/xf.cpp \
+    XF/xfevent.cpp \
+    XF/xftimer.cpp \
+    Control/controller.cpp
 
 HEADERS += \
-    serverconnection.h
+    serverconnection.h \
+    View/view.h \
+    View/setupview.h \
+    data.h \
+    factory.h \
+    XF/ism.h \
+    XF/xf.h \
+    XF/xfevent.h \
+    XF/xftimer.h \
+    Control/controller.h

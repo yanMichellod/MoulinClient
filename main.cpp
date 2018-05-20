@@ -1,15 +1,30 @@
-#include <QCoreApplication>
+#include <QApplication>
 #include "serverconnection.h"
 #include <QDebug>
+#include <QString>
+#include "factory.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    QString* test = new QString("Hello");
-    QByteArray* data = new QByteArray(test->toLatin1());
-    QByteArray recievedData = ServerConnection::getInstance()->send(data);
 
-   // qDebug() << recievedData.toStdString();
+   Factory f;
+   f.build();
+
+
+    // * TEST V 0.0
+    /*
+    ServerConnection::getInstance()->setIPAdress("153.109.7.56");
+    ServerConnection::getInstance()->connectToServer();
+    ServerConnection::getInstance()->send(QByteArray("hello"));
+    */
+
+
+
+    //QByteArray recievedData = ServerConnection::getInstance()->send(data);
+
+    //qDebug() << recievedData.toStdString();
+
     return a.exec();
 }
