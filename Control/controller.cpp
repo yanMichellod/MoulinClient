@@ -17,7 +17,6 @@ Controller::Controller()
 
 Controller::~Controller()
 {
-    delete data;
 }
 
 void Controller::startBehaviour()
@@ -95,6 +94,7 @@ bool Controller::processEvent(XFEvent *p1)
             break;
         }
         case ST_WAITPLAYER:{
+            data->setVisible("waiting",false);
 
             break;
         }
@@ -118,6 +118,7 @@ bool Controller::processEvent(XFEvent *p1)
             break;
         }
         case ST_WAITPLAYER:{
+            data->setVisible("waiting",true);
 
             break;
         }
@@ -135,6 +136,14 @@ void Controller::ipSet()
     ServerConnection::getInstance()->setIPAdress((data->getView("setup"))->getData());
     XFEvent* ev = new XFEvent();
     ev->setID((int)EV_SERVERSET);
+    ev->setTarget(this);
+    XF::getInstance().pushEvent(ev);
+}
+
+void Controller::connectedToServer()
+{
+    XFEvent* ev = new XFEvent();
+    ev->setID((int)EV_ENDCONNECTION);
     ev->setTarget(this);
     XF::getInstance().pushEvent(ev);
 }

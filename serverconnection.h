@@ -31,6 +31,9 @@ private:
 public slots:
     void recieve();
 
+signals:
+    void connectedToServer();
+
 };
 
 

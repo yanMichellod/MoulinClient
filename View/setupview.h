@@ -29,9 +29,11 @@ signals:
     void ipEntered();
 
     // View interface
+public:
+    QString getData();
+
 protected:
     void changed();
-    QString getData();
 };
 
 #endif // SETUPVIEW_H

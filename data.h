@@ -14,7 +14,7 @@ public:
     ~Data();
     void subscribe(View* view);
     void setVisible(QString view , bool visible);
-    View* getView(QString view);
+    View* getView(QString title);
 
 private:
     View** allView;

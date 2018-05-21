@@ -70,6 +70,7 @@ void ServerConnection::connectToServer()
     else{
         connectToServer();
     }
+    emit connectedToServer();
 }
 
 bool ServerConnection::isConnected()

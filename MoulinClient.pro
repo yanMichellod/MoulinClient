@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     XF/xf.cpp \
     XF/xfevent.cpp \
     XF/xftimer.cpp \
-    Control/controller.cpp
+    Control/controller.cpp \
+    View/waitingview.cpp
 
 HEADERS += \
     serverconnection.h \
@@ -32,4 +33,5 @@ HEADERS += \
     XF/xf.h \
     XF/xfevent.h \
     XF/xftimer.h \
-    Control/controller.h
+    Control/controller.h \
+    View/waitingview.h

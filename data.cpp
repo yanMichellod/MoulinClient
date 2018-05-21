@@ -36,11 +36,11 @@ void Data::setVisible(QString view, bool visible)
     }
 }
 
-View *Data::getView(QString view)
+View *Data::getView(QString title)
 {
     View* retview = nullptr;
     for(int i = 0; i < viewCnt ;i++){
-        if(allView[i]->getTitle().compare(view) == 0){
+        if(allView[i]->getTitle().compare(title) == 0){
             retview = allView[i];
         }
     }

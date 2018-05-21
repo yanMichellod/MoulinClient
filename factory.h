@@ -3,6 +3,7 @@
 #include <QObject>
 
 class SetupView;
+class WaitingView;
 class Data;
 class Controller;
 
@@ -17,6 +18,7 @@ public:
 
 private:
     SetupView* sv;
+    WaitingView* wv;
     Data* dt;
     Controller* c;
 };
