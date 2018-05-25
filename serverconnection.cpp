@@ -45,11 +45,13 @@ void ServerConnection::recieve()
     qDebug() << data;
     message = data;
 
+    //test different message
     if(data.contains("player")){
-        emit playerFound();
+        emit positionOfGamer();
     }
-
-
+    else if(data.contains("begin")){
+        emit gamebegin();
+    }
 }
 
 void ServerConnection::setIPAdress(QString adress)

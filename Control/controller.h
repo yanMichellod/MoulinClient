@@ -20,11 +20,25 @@ private:
         ST_NONE , ST_SETSERVER , ST_C0NNECTING , ST_WAITPLAYER , ST_INGAME
     };
     enum CLIENT_EVENT{
-        EV_NONE, EV_INIT , EV_SERVERSET , EV_ENDCONNECTION ,EV_PLAYERFOUND
+        EV_NONE, EV_INIT , EV_SERVERSET , EV_ENDCONNECTION , EV_PLAYERFOUND , EV_GAMEOVER
     };
+    enum INGAME_STATE{
+         ST_NONEGAME , ST_PLAYERPLAY , ST_PLAYERWAIT
+    };
+    enum INGAME_EVENT{
+         EV_NONEGAME , EV_GAMEBEGIN , EV_PLAYERPLAYED , EV_CHANGEPLAYER
+    };
+
     CLIENT_STATE state;
+    INGAME_STATE gamestate;
+
 
     Data* data;
+
+    //call the INGAME state machine
+    bool callSubtracteInGameMachine(XFEvent *p1);
+
+
     // ISM interface
 public:
     bool processEvent(XFEvent *p1);
@@ -32,8 +46,9 @@ public:
 public slots:
     void ipSet();
     void connectedToServer();
-    void playerFound();
-
+    void positionOfGamer();
+    void commandEntered();
+    void gamebegin();
 };
 
 #endif // CONTROLLER_H

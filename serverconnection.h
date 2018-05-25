@@ -33,8 +33,8 @@ public slots:
 
 signals:
     void connectedToServer();
-    void playerFound();
-
+    void positionOfGamer();
+    void gamebegin();
 };
 
 

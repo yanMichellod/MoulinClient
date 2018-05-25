@@ -24,7 +24,6 @@ void InputView::setupUI()
 
     le = new QLineEdit("Enter command here ...",this);
     le->setGeometry(10,40,200,30);
-    le->setEnabled(false);
     le->setVisible(true);
 
     example = new QLabel("Example : place on 3 , move 6 to 7 , eat 15",this);

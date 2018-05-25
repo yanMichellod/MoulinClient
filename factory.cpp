@@ -15,7 +15,7 @@ Factory::Factory()
     wv = new WaitingView(50,50,250,250,"waiting");
     wv->setVisible(false);
     iv = new InputView(50,1000,300,200,"input");
-    iv->setVisible(true);
+    iv->setVisible(false);
     dt = new Data();
     c = new Controller();
 
@@ -39,6 +39,9 @@ void Factory::build()
     connect(sv,SIGNAL(ipEntered()),dt,SLOT(ipSet()));
     connect(dt,SIGNAL(ipEntered()),c,SLOT(ipSet()));
     connect(ServerConnection::getInstance(),SIGNAL(connectedToServer()),c, SLOT(connectedToServer()));
+    connect(ServerConnection::getInstance(),SIGNAL(playerFound()),c,SLOT(playerFound()));
+    connect(iv,SIGNAL(commandEntered()),dt,SLOT(commandEntered()));
+    connect(dt,SIGNAL(commandToSend()),c,SLOT(commandEntered()));
 }
 
 void Factory::start()

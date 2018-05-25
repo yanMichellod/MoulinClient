@@ -12,6 +12,7 @@
 Controller::Controller()
 {
     state = ST_NONE;
+    gamestate = ST_NONEGAME;
     data = nullptr;
 }
 
@@ -32,12 +33,78 @@ void Controller::initRelation(Data *data)
     this->data = data;
 }
 
+bool Controller::callSubtracteInGameMachine(XFEvent *p1)
+{
+    bool retVal = false;
+
+    //subtracte INGAME state machine begin
+    INGAME_STATE oldstate = gamestate;
+
+    // double switch pattern
+    switch(gamestate){
+    case ST_NONEGAME:{
+        if (p1->getID() == EV_GAMEBEGIN){
+
+            if(data->getPlayer() == 1){
+                gamestate = ST_PLAYERPLAY;
+            }
+            else if(data->getPlayer() == 2){
+                gamestate = ST_PLAYERWAIT;
+            }
+        }
+        break;
+    }
+    case ST_PLAYERPLAY:{
+        if(p1->getID() == EV_PLAYERPLAYED){
+            if(data->isMoulin() == true){
+                gamestate = ST_PLAYERPLAY;
+            }
+            else{
+                gamestate = ST_PLAYERWAIT;
+            }
+        }
+        break;
+    }
+    case ST_PLAYERWAIT:{
+        if(p1->getID() == EV_CHANGEPLAYER){
+            gamestate = ST_PLAYERPLAY;
+        }
+        break;
+    }
+    }
+    if(oldstate != gamestate){
+        retVal = true;
+        //do action on exit
+        switch(oldstate){
+        case ST_PLAYERPLAY:{
+            break;
+        }
+        case ST_PLAYERWAIT:{
+            break;
+        }
+        }
+
+        //do action in entry
+        switch(gamestate){
+        case ST_PLAYERPLAY:{
+            data->enableWindow("input" , true);
+            break;
+        }
+        case ST_PLAYERWAIT:{
+            data->enableWindow("input" , false);
+            break;
+        }
+        }
+
+    }
+    return retVal;
+}
+
 bool Controller::processEvent(XFEvent *p1)
 {
     bool retVal = false;
 
     //State machine begin
-    qDebug() << p1->getID();
     CLIENT_STATE oldstate = state;
 
     //Double switch pattern
@@ -63,7 +130,7 @@ bool Controller::processEvent(XFEvent *p1)
             if(ServerConnection::getInstance()->isConnected() == true){
                 state = ST_WAITPLAYER;
             }
-        else{
+            else{
                 state = ST_SETSERVER;
             }
         }
@@ -74,6 +141,15 @@ bool Controller::processEvent(XFEvent *p1)
         if(p1->getID() == EV_PLAYERFOUND){
             state = ST_INGAME;
         }
+        break;
+    }
+    case ST_INGAME : {
+        if(p1->getID() == EV_GAMEOVER){
+            state = ST_WAITPLAYER;
+            break;
+        }
+
+        callSubtracteInGameMachine(p1);
         break;
     }
     }
@@ -99,6 +175,7 @@ bool Controller::processEvent(XFEvent *p1)
             break;
         }
         case ST_INGAME:{
+            data->setVisible("input",false);
 
             break;
         }
@@ -123,7 +200,7 @@ bool Controller::processEvent(XFEvent *p1)
             break;
         }
         case ST_INGAME:{
-
+            data->setVisible("waiting",true);
             break;
         }
         }
@@ -148,7 +225,7 @@ void Controller::connectedToServer()
     XF::getInstance().pushEvent(ev);
 }
 
-void Controller::playerFound()
+void Controller::positionOfGamer()
 {
     if(ServerConnection::getInstance()->getMessage().contains("1")){
         data->setPlayer(1);
@@ -156,6 +233,17 @@ void Controller::playerFound()
     else if(ServerConnection::getInstance()->getMessage().contains("2")){
         data->setPlayer(2);
     }
+}
+
+void Controller::commandEntered()
+{
+    QByteArray msg;
+    msg.append(data->getView("input")->getData());
+    ServerConnection::getInstance()->send(msg);
+}
+
+void Controller::gamebegin()
+{
     XFEvent* ev = new XFEvent();
     ev->setID((int)EV_PLAYERFOUND);
     ev->setTarget(this);
