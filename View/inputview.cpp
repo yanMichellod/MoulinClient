@@ -34,6 +34,7 @@ void InputView::setupUI()
 void InputView::onCommandEntered()
 {
     data = le->text();
+    le->clear();
     emit commandEntered();
 }
 

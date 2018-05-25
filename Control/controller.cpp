@@ -140,6 +140,14 @@ bool Controller::processEvent(XFEvent *p1)
     case ST_WAITPLAYER:{
         if(p1->getID() == EV_PLAYERFOUND){
             state = ST_INGAME;
+
+
+            //begin the game
+            XFEvent* ev = new XFEvent();
+            ev->setID((int)EV_GAMEBEGIN);
+            ev->setTarget(this);
+            XF::getInstance().pushEvent(ev);
+
         }
         break;
     }
@@ -200,7 +208,7 @@ bool Controller::processEvent(XFEvent *p1)
             break;
         }
         case ST_INGAME:{
-            data->setVisible("waiting",true);
+            data->setVisible("input",true);
             break;
         }
         }
@@ -237,9 +245,41 @@ void Controller::positionOfGamer()
 
 void Controller::commandEntered()
 {
+    QString command = data->getView("input")->getData();
+    // test different command
+    // command place
+    if (command.contains("place") == 0){
+        bool placed = false;
+        for(int i = MaxPosition ; i >= 0 ; i--){
+            if(command.contains(i) == 0 && placed == false){
+                data->setTocken(i,data->getPlayer());
+                placed == true;
+            }
+        }
+    }
+
+    // command move
+    else if(command.contains("move") == 0){
+
+    }
+    else if(command.contains("eat") == 0){
+
+    }
     QByteArray msg;
-    msg.append(data->getView("input")->getData());
+    int* tocken = data->getTocken();
+
+    // create message
+    for(int i = 0 ; i < MaxPosition ; i++){
+        msg.append(tocken[i]);
+    }
+
     ServerConnection::getInstance()->send(msg);
+
+    // player played
+    XFEvent* ev = new XFEvent();
+    ev->setID((int)EV_PLAYERPLAYED);
+    ev->setTarget(this);
+    XF::getInstance().pushEvent(ev);
 }
 
 void Controller::gamebegin()

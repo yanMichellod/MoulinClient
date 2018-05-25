@@ -3,6 +3,9 @@
 #include <QString>
 #include <QObject>
 
+#define MaxView 4
+#define MaxPosition 24
+
 class ServerConnector;
 class View;
 
@@ -20,6 +23,8 @@ public:
     int getPlayer();
     void setMoulin(bool val);
     bool isMoulin();
+    void setTocken(int position , int state);
+    int *getTocken();
 
 private:
     View** allView;
@@ -34,7 +39,7 @@ public slots:
 
 signals:
     void ipEntered();
-    void commandToSend();
+    void commandToControl();
 };
 
 #endif // DATA_H

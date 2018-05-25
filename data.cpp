@@ -2,8 +2,6 @@
 #include "serverconnection.h"
 #include "View/view.h"
 
-#define MaxView 4
-#define MaxPosition 24
 
 Data::Data()
 {
@@ -15,6 +13,9 @@ Data::Data()
     viewCnt = 0;
     player = 0;
     tocken = new int[MaxPosition];
+    for(int i = 0 ; i < MaxPosition ; i++){
+        tocken[i] = 0;
+    }
 }
 
 Data::~Data()
@@ -79,6 +80,15 @@ bool Data::isMoulin()
     return moulin;
 }
 
+void Data::setTocken(int position , int state)
+{
+    tocken[position] = state;
+}
+
+int *Data::getTocken()
+{
+    return tocken;
+}
 
 void Data::ipSet()
 {
@@ -87,5 +97,5 @@ void Data::ipSet()
 
 void Data::commandEntered()
 {
-    emit commandToSend();
+    emit commandToControl();
 }

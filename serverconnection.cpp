@@ -72,9 +72,7 @@ void ServerConnection::connectToServer()
         qDebug() << "connected";
         connected = true;
     }   
-    else{
-        connectToServer();
-    }
+
     emit connectedToServer();
 }
 

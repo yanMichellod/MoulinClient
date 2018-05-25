@@ -34,6 +34,7 @@ void SetupView::setupUI()
 void SetupView::onCommandEntered()
 {
     data = le->text();
+    le->clear();
     emit ipEntered();
 }
 
