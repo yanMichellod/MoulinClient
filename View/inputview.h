@@ -1,23 +1,24 @@
-#ifndef SETUPVIEW_H
-#define SETUPVIEW_H
+#ifndef INPUTVIEW_H
+#define INPUTVIEW_H
 #include "View/view.h"
-#include <QLineEdit>
 #include <QLabel>
+#include <QLineEdit>
 #include <QString>
 
-class SetupView : public View
+
+class InputView : public View
 {
     Q_OBJECT
 public:
-    SetupView(int x, int y, int width, int heigth, QString title);
-    ~SetupView();
+    InputView(int x, int y, int width, int heigth, QString title);
+    ~InputView();
 
 private:
     void setupUI();
 
+    QLabel* info;
     QLineEdit* le;
-    QLabel* ip;
-    QLabel* port;
+    QLabel* example;
 
     QString data;
 
@@ -32,9 +33,7 @@ private slots:
     void onCommandEntered();
 
 signals:
-    void ipEntered();
-
-
+    void commandEntered();
 };
 
-#endif // SETUPVIEW_H
+#endif // INPUTVIEW_H

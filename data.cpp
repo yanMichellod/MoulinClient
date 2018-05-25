@@ -2,7 +2,8 @@
 #include "serverconnection.h"
 #include "View/view.h"
 
-#define MaxView 3
+#define MaxView 4
+#define MaxPosition 24
 
 Data::Data()
 {
@@ -12,6 +13,8 @@ Data::Data()
         allView[i] = nullptr;
     }
     viewCnt = 0;
+    player = 0;
+    tocken = new int[MaxPosition];
 }
 
 Data::~Data()
@@ -47,7 +50,18 @@ View *Data::getView(QString title)
     return retview;
 }
 
+void Data::setPlayer(int number)
+{
+    player = number;
+}
+
+int Data::getPlayer()
+{
+    return player;
+}
+
 
 void Data::ipSet()
 {
+    emit ipEntered();
 }

@@ -39,14 +39,17 @@ QString ServerConnection::getMessage()
 
 void ServerConnection::recieve()
 {
+    // recieve data and transfomr to QString
     QByteArray recievedData = socket->readAll();
-    QString data;
-    for(int i=0; i<recievedData.length(); i++)
-    {
-        data.append(recievedData.at(i));
-    }
+    QString data = recievedData.data();
     qDebug() << data;
     message = data;
+
+    if(data.contains("player")){
+        emit playerFound();
+    }
+
+
 }
 
 void ServerConnection::setIPAdress(QString adress)

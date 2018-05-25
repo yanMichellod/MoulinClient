@@ -1,5 +1,4 @@
 #include "setupview.h"
-#include "serverconnection.h"
 
 
 SetupView::SetupView(int x, int y, int width, int heigth, QString title)
@@ -25,6 +24,7 @@ void SetupView::setupUI()
     le = new QLineEdit("enter IP adress ...",this);
     le->setGeometry(10,30,150,20);
     le->setVisible(true);
+    le->setEnabled(true);
 
     port = new QLabel("Port number : 3333",this);
     port->setGeometry(10,70,150,10);

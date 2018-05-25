@@ -32,6 +32,7 @@ public:
 public slots:
     void ipSet();
     void connectedToServer();
+    void playerFound();
 
 };
 

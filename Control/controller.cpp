@@ -148,3 +148,17 @@ void Controller::connectedToServer()
     XF::getInstance().pushEvent(ev);
 }
 
+void Controller::playerFound()
+{
+    if(ServerConnection::getInstance()->getMessage().contains("1")){
+        data->setPlayer(1);
+    }
+    else if(ServerConnection::getInstance()->getMessage().contains("2")){
+        data->setPlayer(2);
+    }
+    XFEvent* ev = new XFEvent();
+    ev->setID((int)EV_PLAYERFOUND);
+    ev->setTarget(this);
+    XF::getInstance().pushEvent(ev);
+}
+
