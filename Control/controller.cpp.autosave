@@ -263,8 +263,15 @@ void Controller::commandEntered()
     else if(command.contains("move")){
 
     }
+    
+    // command eat
     else if(command.contains("eat")){
-
+        for(int i = (MaxPosition-1) ; i >= 0 ; i--){
+            if(command.contains(QString::number(i)) && placed == false){
+                placed = true;
+                data->setTocken(i,3);
+            }
+        }
     }
 
     // player played

@@ -50,6 +50,18 @@ void ServerConnection::recieve()
     else if(message.contains("begin")){
         emit gamebegin();
     }
+    else if(message.contains("turn")){
+        emit changingPlayer();
+    }
+    else if(message.contains("moulin")){
+        emit moulin();
+    }
+    else if(message.contains("replay")){
+        emit replay();
+    }
+    else if(message.length() == 24){
+        emit gameUpdated();
+    }
 }
 
 void ServerConnection::setIPAdress(QString adress)
