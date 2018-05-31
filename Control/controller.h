@@ -49,10 +49,13 @@ public slots:
     void positionOfGamer();
     void commandEntered();
     void gamebegin();
+<<<<<<< HEAD
     void changingPlayer();
     void moulin();
     void replay();
     void gameUpdated();
+=======
+>>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
 };
 
 #endif // CONTROLLER_H

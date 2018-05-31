@@ -6,7 +6,6 @@
 #include "data.h"
 #include <XF/ism.h>
 #include "View/view.h"
-#include <QStringList>
 
 
 
@@ -59,10 +58,6 @@ bool Controller::callSubtracteInGameMachine(XFEvent *p1)
         if(p1->getID() == EV_PLAYERPLAYED){
             if(data->isMoulin() == true){
                 gamestate = ST_PLAYERPLAY;
-<<<<<<< HEAD
-                data->setMoulin(false);
-=======
->>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
             }
             else{
                 gamestate = ST_PLAYERWAIT;
@@ -250,20 +245,6 @@ void Controller::positionOfGamer()
 
 void Controller::commandEntered()
 {
-<<<<<<< HEAD
-    bool isCorrect = false;
-
-    QString command = data->getView("input")->getData();
-    QStringList list;
-
-    // test different command
-    // command place
-    if (command.contains("place")){
-        list = command.split(" ");
-        QString place = list[2];
-        data->setTocken(place.toInt(),data->getPlayer());
-        isCorrect = true;
-=======
     bool placed = false;
 
     QString command = data->getView("input")->getData();
@@ -276,43 +257,25 @@ void Controller::commandEntered()
                 data->setTocken(i,data->getPlayer());
             }
         }
->>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
     }
 
     // command move
     else if(command.contains("move")){
-<<<<<<< HEAD
-        list = command.split(" ");
-        QString first = list[1];
-        QString second = list[3];
 
-        data->setTocken(first.toInt(),0);
-        data->setTocken(second.toInt(),data->getPlayer());
-
-        isCorrect = true;
     }
-
+    
     // command eat
     else if(command.contains("eat")){
-        list = command.split(" ");
-        QString eat = list[1];
-        data->setTocken(eat.toInt(),3);
-
-        isCorrect = true;
-    }
-
-    // player played
-    if(isCorrect == true){
-=======
-
-    }
-    else if(command.contains("eat")){
-
+        for(int i = (MaxPosition-1) ; i >= 0 ; i--){
+            if(command.contains(QString::number(i)) && placed == false){
+                placed = true;
+                data->setTocken(i,3);
+            }
+        }
     }
 
     // player played
     if(placed == true){
->>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
         QByteArray msg;
         int* tocken = data->getTocken();
 
@@ -338,43 +301,3 @@ void Controller::gamebegin()
     XF::getInstance().pushEvent(ev);
 }
 
-<<<<<<< HEAD
-void Controller::changingPlayer()
-{
-    if(ServerConnection::getInstance()->getMessage().contains(data->getPlayer())){
-        XFEvent* ev = new XFEvent();
-        ev->setID((int)EV_CHANGEPLAYER);
-        ev->setTarget(this);
-        XF::getInstance().pushEvent(ev);
-    }
-    else{
-        XFEvent* ev = new XFEvent();
-        ev->setID((int)EV_PLAYERPLAYED);
-        ev->setTarget(this);
-        XF::getInstance().pushEvent(ev);
-    }
-}
-
-void Controller::moulin()
-{
-    data->setMoulin(true);
-    XFEvent* ev = new XFEvent();
-    ev->setID((int)EV_PLAYERPLAYED);
-    ev->setTarget(this);
-    XF::getInstance().pushEvent(ev);
-}
-
-void Controller::replay()
-{
-
-}
-
-void Controller::gameUpdated()
-{
-    for(int i = 0 ; i < ServerConnection::getInstance()->getMessage().length() ; i++){
-        data->setTocken(i ,ServerConnection::getInstance()->getMessage().at(i).digitValue());
-    }
-}
-
-=======
->>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f

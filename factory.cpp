@@ -15,7 +15,11 @@ Factory::Factory()
     wv = new WaitingView(50,50,250,250,"waiting");
     wv->setVisible(false);
     iv = new InputView(50,800,300,200,"input");
+<<<<<<< HEAD
     iv->setVisible(true);
+=======
+    iv->setVisible(false);
+>>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
     dt = new Data();
     c = new Controller();
 

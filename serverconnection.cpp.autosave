@@ -49,7 +49,6 @@ void ServerConnection::recieve()
     }
     else if(message.contains("begin")){
         emit gamebegin();
-<<<<<<< HEAD
     }
     else if(message.contains("turn")){
         emit changingPlayer();
@@ -62,8 +61,6 @@ void ServerConnection::recieve()
     }
     else if(message.length() == 24){
         emit gameUpdated();
-=======
->>>>>>> d6447075ae57a28cea3387f4de72e7734cbfa54f
     }
 }
 
