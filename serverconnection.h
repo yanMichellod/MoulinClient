@@ -25,7 +25,7 @@ private:
     static ServerConnection* instance ;
     QTcpSocket* socket;
     QString adress;
-    QString message;
+    QByteArray message;
     bool connected;
 
 public slots:
@@ -33,7 +33,12 @@ public slots:
 
 signals:
     void connectedToServer();
-
+    void positionOfGamer();
+    void gamebegin();
+    void replay();
+    void moulin();
+    void changingPlayer();
+    void gameUpdated();
 };
 
 

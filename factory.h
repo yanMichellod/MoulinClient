@@ -4,6 +4,7 @@
 
 class SetupView;
 class WaitingView;
+class InputView;
 class Data;
 class Controller;
 
@@ -19,6 +20,7 @@ public:
 private:
     SetupView* sv;
     WaitingView* wv;
+    InputView* iv;
     Data* dt;
     Controller* c;
 };

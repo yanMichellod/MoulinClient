@@ -39,14 +39,29 @@ QString ServerConnection::getMessage()
 
 void ServerConnection::recieve()
 {
-    QByteArray recievedData = socket->readAll();
-    QString data;
-    for(int i=0; i<recievedData.length(); i++)
-    {
-        data.append(recievedData.at(i));
+    // recieve data
+    message = socket->readAll();
+    qDebug() << message;
+    qDebug() << message.length();
+    //test different message
+    if(message.contains("player")){
+        emit positionOfGamer();
     }
-    qDebug() << data;
-    message = data;
+    else if(message.contains("begin")){
+        emit gamebegin();
+    }
+    else if(message.contains("turn")){
+        emit changingPlayer();
+    }
+    else if(message.contains("moulin")){
+        emit moulin();
+    }
+    else if(message.contains("replay")){
+        emit replay();
+    }
+    else if(message.length() == 24){
+        emit gameUpdated();
+    }
 }
 
 void ServerConnection::setIPAdress(QString adress)
@@ -67,9 +82,7 @@ void ServerConnection::connectToServer()
         qDebug() << "connected";
         connected = true;
     }   
-    else{
-        connectToServer();
-    }
+
     emit connectedToServer();
 }
 
