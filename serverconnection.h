@@ -35,6 +35,10 @@ signals:
     void connectedToServer();
     void positionOfGamer();
     void gamebegin();
+    void replay();
+    void moulin();
+    void changingPlayer();
+    void gameUpdated();
 };
 
 

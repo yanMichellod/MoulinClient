@@ -6,6 +6,7 @@
 #include "data.h"
 #include <XF/ism.h>
 #include "View/view.h"
+#include <QStringList>
 
 
 
@@ -248,23 +249,37 @@ void Controller::commandEntered()
     bool placed = false;
 
     QString command = data->getView("input")->getData();
+    QStringList list;
     // test different command
     // command place
     if (command.contains("place")){
+        list = command.split(" ");
+
+        data->setTocken(i,data->getPlayer());
+        /*
         for(int i = (MaxPosition-1) ; i >= 0 ; i--){
             if(command.contains(QString::number(i)) && placed == false){
                 placed = true;
                 data->setTocken(i,data->getPlayer());
             }
         }
+        */
     }
 
     // command move
     else if(command.contains("move")){
+        list = command.split(" ");
 
     }
-    else if(command.contains("eat")){
 
+    // command eat
+    else if(command.contains("eat")){
+        for(int i = (MaxPosition-1) ; i >= 0 ; i--){
+            if(command.contains(QString::number(i)) && placed == false){
+                placed = true;
+                data->setTocken(i,3);
+            }
+        }
     }
 
     // player played
