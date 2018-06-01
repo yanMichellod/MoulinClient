@@ -13,6 +13,7 @@ Data::Data()
     viewCnt = 0;
     player = 0;
     tocken = new int[MaxPosition];
+    moulin = 0;
     for(int i = 0 ; i < MaxPosition ; i++){
         tocken[i] = 0;
     }

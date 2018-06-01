@@ -32,7 +32,7 @@ void ServerConnection::send(QByteArray data)
     socket->flush();
 }
 
-QString ServerConnection::getMessage()
+QByteArray ServerConnection::getMessage()
 {
     return message;
 }

@@ -22,7 +22,7 @@ void InputView::setupUI()
     info->setGeometry(10,10,200,30);
     info->setVisible(true);
 
-    le = new QLineEdit("Enter command here ...",this);
+    le = new QLineEdit("place on 6",this);
     le->setGeometry(10,40,200,30);
     le->setVisible(true);
 

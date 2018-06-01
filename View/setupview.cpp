@@ -21,7 +21,7 @@ void SetupView::setupUI()
     ip->setGeometry(10,10,100,10);
     ip->setVisible(true);
 
-    le = new QLineEdit("enter IP adress ...",this);
+    le = new QLineEdit("153.109.7.46",this);
     le->setGeometry(10,30,150,20);
     le->setVisible(true);
     le->setEnabled(true);

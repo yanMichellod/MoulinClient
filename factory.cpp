@@ -43,6 +43,11 @@ void Factory::build()
     connect(ServerConnection::getInstance(),SIGNAL(gamebegin()),c,SLOT(gamebegin()));
     connect(iv,SIGNAL(commandEntered()),dt,SLOT(commandEntered()));
     connect(dt,SIGNAL(commandToControl()),c,SLOT(commandEntered()));
+    connect(ServerConnection::getInstance(),SIGNAL(replay()),c,SLOT(replay()));
+    connect(ServerConnection::getInstance(),SIGNAL(moulin()),c,SLOT(moulin()));
+    connect(ServerConnection::getInstance(),SIGNAL(changingPlayer()),c,SLOT(changingPlayer()));
+    connect(ServerConnection::getInstance(),SIGNAL(gameUpdated()),c,SLOT(gameUpdated()));
+
 }
 
 void Factory::start()
