@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     XF/xftimer.cpp \
     Control/controller.cpp \
     View/waitingview.cpp \
-    View/inputview.cpp
+    View/inputview.cpp \
+    View/gameview.cpp \
+    GamePiece/piece.cpp
 
 HEADERS += \
     serverconnection.h \
@@ -36,4 +38,6 @@ HEADERS += \
     XF/xftimer.h \
     Control/controller.h \
     View/waitingview.h \
-    View/inputview.h
+    View/inputview.h \
+    View/gameview.h \
+    GamePiece/piece.h
