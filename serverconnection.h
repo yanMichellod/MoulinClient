@@ -13,7 +13,7 @@ public:
     ~ServerConnection();
     static ServerConnection *getInstance();
     void send(QByteArray data);
-    QString getMessage();
+    QByteArray getMessage();
     void setIPAdress(QString adress);
     QString getIPAdress();
     void connectToServer();

@@ -1,12 +1,12 @@
 #include "gameview.h"
-
+#include <data.h>
+#include "QPainter"
+#include <QString>
 
 GameView::GameView(int x, int y, int width, int heigth, QString title)
     : View(x,y,width,heigth,title)
 {
     createPosition();
-    createPiece();
-    createGameBoard();
 }
 
 GameView::~GameView()
@@ -41,14 +41,52 @@ void GameView::createPosition()
     position[23] = QPoint(250,500);
 }
 
-void GameView::createPiece()
+
+void GameView::drawGameBoard(QPainter* painter)
 {
+    // draw corner of the gameboard
+    for(int i = 0 ; i < MaxPosition ; i++ ){
+        painter->setBrush(Qt::black);
+        painter->drawEllipse(position[i],10,10);
+    }
+    // draw lines of the gameboard
+    painter->drawLine(position[0],position[3]);
+    painter->drawLine(position[0],position[21]);
+    painter->drawLine(position[1],position[4]);
+    painter->drawLine(position[1],position[22]);
+    painter->drawLine(position[2],position[5]);
+    painter->drawLine(position[2],position[23]);
+    painter->drawLine(position[3],position[6]);
+    painter->drawLine(position[3],position[4]);
+    painter->drawLine(position[4],position[5]);
+    painter->drawLine(position[4],position[7]);
+    painter->drawLine(position[5],position[8]);
+    painter->drawLine(position[6],position[9]);
+    painter->drawLine(position[7],position[10]);
+    painter->drawLine(position[8],position[11]);
+    painter->drawLine(position[9],position[10]);
+    painter->drawLine(position[9],position[12]);
+    painter->drawLine(position[10],position[11]);
+    painter->drawLine(position[10],position[13]);
+    painter->drawLine(position[11],position[14]);
+    painter->drawLine(position[12],position[15]);
+    painter->drawLine(position[13],position[16]);
+    painter->drawLine(position[14],position[17]);
+    painter->drawLine(position[15],position[16]);
+    painter->drawLine(position[15],position[18]);
+    painter->drawLine(position[16],position[17]);
+    painter->drawLine(position[16],position[19]);
+    painter->drawLine(position[17],position[20]);
+    painter->drawLine(position[18],position[21]);
+    painter->drawLine(position[19],position[22]);
+    painter->drawLine(position[20],position[23]);
+    painter->drawLine(position[21],position[22]);
+    painter->drawLine(position[22],position[23]);
 
-}
-
-void GameView::createGameBoard()
-{
-
+    // draw number of the gameboard
+    for(int i = 0; i < MaxPosition ; i++){
+        painter->drawText(position[i].x()-25,position[i].y()-25,QString::number(i));
+    }
 }
 
 QString GameView::getData()
@@ -59,4 +97,10 @@ QString GameView::getData()
 void GameView::changed()
 {
 
+}
+
+void GameView::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    drawGameBoard(&painter);
 }

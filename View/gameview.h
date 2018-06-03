@@ -14,8 +14,7 @@ public:
 
 private:
     void createPosition();
-    void createPiece();
-    void createGameBoard();
+    void drawGameBoard(QPainter* painter);
     QMap<int,QPoint> position ;
 
     // View interface
@@ -24,6 +23,10 @@ public:
 
 protected:
     void changed();
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // GAMEVIEW_H

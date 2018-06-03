@@ -26,7 +26,7 @@ private:
          ST_NONEGAME , ST_PLAYERPLAY , ST_PLAYERWAIT
     };
     enum INGAME_EVENT{
-         EV_NONEGAME , EV_GAMEBEGIN , EV_PLAYERPLAYED , EV_CHANGEPLAYER
+         EV_NONEGAME , EV_GAMEBEGIN , EV_PLAYERPLAYED , EV_CHANGEPLAYER , EV_REPLAY
     };
 
     CLIENT_STATE state;
@@ -49,6 +49,11 @@ public slots:
     void positionOfGamer();
     void commandEntered();
     void gamebegin();
+    void changingPlayer();
+    void moulin();
+    void replay();
+    void gameUpdated();
+
 };
 
 #endif // CONTROLLER_H

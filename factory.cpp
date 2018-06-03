@@ -3,6 +3,7 @@
 #include "View/setupview.h"
 #include "View/waitingview.h"
 #include "View/inputview.h"
+#include "View/gameview.h"
 #include "data.h"
 #include "Control/controller.h"
 #include "serverconnection.h"
@@ -16,6 +17,8 @@ Factory::Factory()
     wv->setVisible(false);
     iv = new InputView(50,800,300,200,"input");
     iv->setVisible(false);
+    gv = new GameView(50,50,850,850,"game");
+    gv->setVisible(true);
     dt = new Data();
     c = new Controller();
 
@@ -26,6 +29,7 @@ Factory::~Factory()
     delete sv;
     delete wv;
     delete iv;
+    delete gv;
     delete dt;
     delete c;
 }
@@ -35,6 +39,7 @@ void Factory::build()
     dt->subscribe(sv);
     dt->subscribe(wv);
     dt->subscribe(iv);
+    dt->subscribe(gv);
     c->initRelation(dt);
     connect(sv,SIGNAL(ipEntered()),dt,SLOT(ipSet()));
     connect(dt,SIGNAL(ipEntered()),c,SLOT(ipSet()));

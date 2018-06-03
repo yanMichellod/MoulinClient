@@ -5,6 +5,7 @@
 class SetupView;
 class WaitingView;
 class InputView;
+class GameView;
 class Data;
 class Controller;
 
@@ -21,6 +22,7 @@ private:
     SetupView* sv;
     WaitingView* wv;
     InputView* iv;
+    GameView* gv;
     Data* dt;
     Controller* c;
 };
