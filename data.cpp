@@ -100,3 +100,8 @@ void Data::commandEntered()
 {
     emit commandToControl();
 }
+
+void Data::gameUpdated()
+{
+    emit updatePiece();
+}

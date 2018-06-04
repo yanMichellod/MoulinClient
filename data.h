@@ -36,10 +36,12 @@ private:
 public slots:
     void ipSet();
     void commandEntered();
+    void gameUpdated();
 
 signals:
     void ipEntered();
     void commandToControl();
+    void updatePiece();
 };
 
 #endif // DATA_H

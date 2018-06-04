@@ -6,11 +6,17 @@
 GameView::GameView(int x, int y, int width, int heigth, QString title)
     : View(x,y,width,heigth,title)
 {
+    data = nullptr;
     createPosition();
 }
 
 GameView::~GameView()
 {
+}
+
+void GameView::initRelation(Data *d)
+{
+    data = d;
 }
 
 void GameView::createPosition()
@@ -83,9 +89,40 @@ void GameView::drawGameBoard(QPainter* painter)
     painter->drawLine(position[21],position[22]);
     painter->drawLine(position[22],position[23]);
 
+
     // draw number of the gameboard
     for(int i = 0; i < MaxPosition ; i++){
         painter->drawText(position[i].x()-25,position[i].y()-25,QString::number(i));
+    }
+
+    // text to know wich player we are
+    painter->setFont(QFont("Arial" , 10 ,QFont::Bold));
+    painter->drawText(QPoint(10,20),"You are the player : " + QString::number(data->getPlayer()));
+
+
+}
+
+void GameView::drawPiece(QPainter *painter)
+{
+    for(int i = 0 ; i < MaxPosition ; i++){
+        switch(data->getTocken()[i]){
+        case 0 :{
+            break;
+        }
+        case 1:{
+            painter->setBrush(Qt::white);
+            painter->drawEllipse(position[i],25,25);
+            break;
+        }
+        case 2:{
+            painter->setBrush(Qt::black);
+            painter->drawEllipse(position[i],25,25);
+            break;
+        }
+        default:{
+            break;
+        }
+        }
     }
 }
 
@@ -103,4 +140,10 @@ void GameView::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     drawGameBoard(&painter);
+    drawPiece(&painter);
+}
+
+void GameView::gameUpdated()
+{
+    repaint();
 }

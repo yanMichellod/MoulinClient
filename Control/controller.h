@@ -54,6 +54,9 @@ public slots:
     void replay();
     void gameUpdated();
 
+signals:
+    void updatePiece();
+
 };
 
 #endif // CONTROLLER_H

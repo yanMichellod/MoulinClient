@@ -41,6 +41,7 @@ void Factory::build()
     dt->subscribe(iv);
     dt->subscribe(gv);
     c->initRelation(dt);
+    gv->initRelation(dt);
     connect(sv,SIGNAL(ipEntered()),dt,SLOT(ipSet()));
     connect(dt,SIGNAL(ipEntered()),c,SLOT(ipSet()));
     connect(ServerConnection::getInstance(),SIGNAL(connectedToServer()),c, SLOT(connectedToServer()));
@@ -52,6 +53,8 @@ void Factory::build()
     connect(ServerConnection::getInstance(),SIGNAL(moulin()),c,SLOT(moulin()));
     connect(ServerConnection::getInstance(),SIGNAL(changingPlayer()),c,SLOT(changingPlayer()));
     connect(ServerConnection::getInstance(),SIGNAL(gameUpdated()),c,SLOT(gameUpdated()));
+    connect(c,SIGNAL(updatePiece()),dt,SLOT(gameUpdated()));
+    connect(dt,SIGNAL(updatePiece()),gv,SLOT(gameUpdated()));
 
 }
 
